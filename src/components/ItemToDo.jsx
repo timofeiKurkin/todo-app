@@ -2,6 +2,8 @@ import React from "react";
 import "../styles/ItemToDo.css"
 import dayjs from "dayjs";
 import CheckMark from "./ui/CheckMark";
+import {logDOM} from "@testing-library/react";
+// import relativeTime from 'dayjs/plugin/relativeTime'
 
 /**
  *
@@ -19,6 +21,26 @@ const ItemToDo = ({props, remove, open, complete}) => {
 	 * @type {string}
 	 */
 	const dateParse = dayjs(props.dateComplete).format("DD.MM.YYYY")
+
+	/**
+	 * Переменные для парсинга даты в нужный вид
+	 *
+	 * @type {string}
+	 */
+	const dateParseSecond = dayjs(props.dateComplete).format("YYYY-MM-DD")
+	const unixDate = dayjs().unix()
+	const dateCompleteUnix = dayjs(dateParseSecond).unix()
+	const dateTimeOut = (dateCompleteUnix - unixDate) * 1000
+	console.log(dateTimeOut)
+
+	/**
+	 * Если статус !false => сработает setTimeout, а как время передаю dateTimeOut, который является разницей двух дат
+	 */
+	if(!props.completeStatus) {
+		setTimeout(() => {
+			complete(props, props.completeStatus)
+		}, dateTimeOut)
+	}
 
 	/**
 	 * В переменную помещаем объект с полем file.
