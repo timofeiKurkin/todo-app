@@ -9,7 +9,6 @@ import UploadFile from "./UploadFile";
 
 const OpenItem = ({props, remove, save, toDay}) => {
 	const [editToDoStatus, setEditToDoStatus] = useState(false)
-	const statusDate = true
 	const [editToDo, setEditToDo] = useState({
 		idItem: "",
 		title: "",
@@ -20,7 +19,6 @@ const OpenItem = ({props, remove, save, toDay}) => {
 	})
 	const [selectedFile, setSelectedFile] = useState({})
 	const [selectedFileStatus, setSelectedFileStatus] = useState(false)
-	// console.log(selectedFileStatus)
 
 	const handleOpen = (item) => {
 		setEditToDo({
