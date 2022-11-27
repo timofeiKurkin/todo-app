@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import ItemToDo from "./ItemToDo";
-import '../styles/ListItem.css'
+import "../styles/ListItem.css"
 
-const ListItem = ({items, remove, open, complete, day, loading}) => {
+const ListItem = ({items, remove, open, complete, loading}) => {
 
 	if(loading) {
 		return (
@@ -24,7 +24,6 @@ const ListItem = ({items, remove, open, complete, day, loading}) => {
 						  remove={remove}
 						  open={open}
 						  complete={complete}
-						  day={day}
 				/>
 			)}
 		</div>

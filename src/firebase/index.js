@@ -14,9 +14,9 @@ const app = initializeApp({
 export const db = getFirestore(app);
 export const TODOS_PATH = "todos"
 export const todosCollectionRef = collection(db, TODOS_PATH)
-const todosCollectionQuery = query(todosCollectionRef, orderBy('id', 'desc'))
+const todosCollectionQuery = query(todosCollectionRef, orderBy("id", "desc"))
 
-export const getData = (setItems, setLoading) => {
+export const getData = (setItems, setLoading, toDay) => {
 	onSnapshot(todosCollectionQuery, (data) => {
 		const todoArray = []
 		data.forEach((dataItem) => {
@@ -27,7 +27,7 @@ export const getData = (setItems, setLoading) => {
 				title: dataInfo.title,
 				description: dataInfo.description,
 				dateComplete: dataInfo.dateComplete,
-				completeStatus: dataInfo.completeStatus
+				completeStatus: (dataInfo.dateComplete <= toDay) ? !dataInfo.completeStatus : dataInfo.completeStatus
 			}
 			todoArray.push(todo)
 		})

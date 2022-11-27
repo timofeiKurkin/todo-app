@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/ui/CreateTextarea.css'
+import '../../styles/ui/CreateTextarea.css'
 
 const CreateTextarea = ({name, value, onBlur, onChange, place}) => {
 	return (

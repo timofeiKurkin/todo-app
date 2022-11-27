@@ -1,4 +1,4 @@
-import './App.css';
+import "./App.css";
 import React, {useContext, useEffect, useState} from "react";
 import FormInputs from "./components/FormInputs";
 import ListItem from "./components/ListItem";
@@ -12,12 +12,12 @@ function App() {
 	const [items, setItems] = useState([])
 	const [selectTodo, setSelectToDo] = useState([])
 	const [loading, setLoading] = useState(true)
-	const toDay = dayjs().format('DD.MM.YYYY')
+	const toDay = dayjs().format("YYYY-MM-DD")
 	const {db} = useContext(Context)
 
 	useEffect(() => {
-		getData(setItems, setLoading)
-	}, [])
+		getData(setItems, setLoading, toDay)
+	}, [items])
 
 	const createToDo = async (newTodo) => {
 		await addDoc(todosCollectionRef, newTodo)
@@ -71,21 +71,22 @@ function App() {
 	return (
 		<div className="App">
 			<div className="App__list">
-				<FormInputs createToDo={createToDo}/>
+				<FormInputs createToDo={createToDo} toDay={toDay}/>
 				<ListItem items={items}
 						  remove={removeToDo}
 						  open={openToDo}
 						  complete={completeTask}
-						  day={toDay}
 						  loading={loading}/>
 			</div>
 
-			<div className={'App__line'}></div>
+			<div className="App__line"></div>
 
 			<div className="App__item">
 				<OpenItem props={selectTodo}
 						  remove={removeToDo}
-						  save={saveEdit}/>
+						  save={saveEdit}
+						  toDay={toDay}
+				/>
 			</div>
 		</div>
 	);

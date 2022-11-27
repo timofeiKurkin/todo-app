@@ -12,7 +12,7 @@
   width: 48px;
   height: 48px;
   border-radius: 5px;
-  background-color: black;
+  background-color: #2a2a2a;
 }
 .item-todo__close svg {
   padding: 11px;
@@ -24,18 +24,6 @@
   cursor: pointer;
   display: grid;
   grid-template-columns: minmax(300px, 800px);
-}
-.item-todo .no-active,
-.item-todo .is-active {
-  border: 1px solid black;
-  border-radius: 3px;
-  padding: 6px 9px;
-}
-.item-todo .no-active {
-  background-color: white;
-}
-.item-todo .is-active {
-  background-color: #75f344;
 }
 .is-active-item,
 .no-active-item {

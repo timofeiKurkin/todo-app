@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/ui/CreateInput.css'
+import '../../styles/ui/CreateInput.css'
 
 const CreateInput = ({name, value, onBlur, onChange, place}) => {
 	return (

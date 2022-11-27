@@ -1,19 +1,15 @@
-import React, {useState} from 'react';
+import React from "react";
 import useInput from "../hooks/useInput";
-import CreateInput from "../ui/CreateInput";
-import CreateTextarea from "../ui/CreateTextarea";
-import Button from "../ui/Button";
-import '../styles/FormInput.css'
-import dayjs from "dayjs";
+import CreateInput from "./ui/CreateInput";
+import CreateTextarea from "./ui/CreateTextarea";
+import Button from "./ui/Button";
+import "../styles/FormInput.css"
 
 const FormInputs = ({createToDo}) => {
-	const title = useInput('', 'title', {isEmpty: true})
-	const description = useInput('', 'description', {isEmpty: true})
-	const date = useInput('', 'date', {isEmpty: true})
+	const title = useInput("", "title", {isEmpty: true})
+	const description = useInput("", "description", {isEmpty: true})
+	const date = useInput("", "date", {isEmpty: true})
 	const statusDate = false
-
-	const toDay = dayjs().format('DD.MM.YYYY')
-	const day = dayjs(date.value).format('DD.MM.YYYY')
 
 	const clearLocalStorage = () => {
 		localStorage.clear()
@@ -26,7 +22,7 @@ const FormInputs = ({createToDo}) => {
 			id: Date.now(),
 			title: title.value,
 			description: description.value,
-			dateComplete: day,
+			dateComplete: date.value,
 			completeStatus: statusDate
 		}
 		createToDo(newToDo)
@@ -34,19 +30,19 @@ const FormInputs = ({createToDo}) => {
 
 	return (
 		<div className="form">
-			<div className={'form__title'}>
+			<div className="form__title">
 				<h1>Создать To-Do...</h1>
 			</div>
-			<form className={'form__body'} onSubmit={handleSubmit}>
+			<form className="form__body" onSubmit={handleSubmit}>
 
 				<div className="form__inputBody">
 
-					<div className={'form__input'}>
+					<div className="form__input">
 						<CreateInput onChange={title.onChange}
 									 onBlur={title.onBlur}
 									 value={title.value}
-									 name={'title'}
-									 place={'Название'}
+									 name="title"
+									 place="Название"
 						/>
 					</div>
 
@@ -57,14 +53,14 @@ const FormInputs = ({createToDo}) => {
 						/>
 					</div>
 
-					<div className={'form__textarea'}>
+					<div className="form__textarea">
 						<CreateTextarea
 							onChange={description.onChange}
 							onBlur={description.onBlur}
 							value={description.value}
-							name={'description'}
+							name="description"
 							type="text"
-							place={'Описание'}
+							place="Описание"
 
 						/>
 					</div>
