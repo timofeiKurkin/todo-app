@@ -60,7 +60,7 @@ function App() {
 			if ((idItem.indexOf(item.idItem) !== -1)) {
 				todo = {
 					...item,
-					id: -(item.id),
+					id: item.id,
 					completeStatus: !e
 				}
 			}

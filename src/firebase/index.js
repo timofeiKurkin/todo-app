@@ -19,6 +19,7 @@ const todosCollectionQuery = query(todosCollectionRef, orderBy("id", "desc"))
 export const getData = (setItems, setLoading, toDay) => {
 	onSnapshot(todosCollectionQuery, (data) => {
 		const todoArray = []
+
 		data.forEach((dataItem) => {
 			const dataInfo = dataItem.data()
 			const todo = {
@@ -28,7 +29,7 @@ export const getData = (setItems, setLoading, toDay) => {
 				description: dataInfo.description,
 				file: dataInfo.file,
 				dateComplete: dataInfo.dateComplete,
-				completeStatus: (dataInfo.dateComplete && (dataInfo.dateComplete <= toDay)) ? !dataInfo.completeStatus : dataInfo.completeStatus
+				completeStatus: dataInfo.completeStatus
 			}
 			todoArray.push(todo)
 		})

@@ -20,7 +20,7 @@ const OpenItem = ({props, remove, save, toDay}) => {
 	})
 	const [selectedFile, setSelectedFile] = useState({})
 	const [selectedFileStatus, setSelectedFileStatus] = useState(false)
-	console.log(selectedFileStatus)
+	// console.log(selectedFileStatus)
 
 	const handleOpen = (item) => {
 		setEditToDo({
@@ -68,7 +68,7 @@ const OpenItem = ({props, remove, save, toDay}) => {
 					editToDo.file
 			,
 			dateComplete: editToDo.dateComplete,
-			completeStatus: (toDay >= editToDo.dateComplete) ? statusDate : editToDo.completeStatus
+			completeStatus: editToDo.completeStatus
 		}
 		save(edit)
 		// if (selectedFileStatus) {
