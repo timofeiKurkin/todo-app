@@ -1,0 +1,6 @@
+.lists {
+  display: grid;
+  grid-template-rows: minmax(20px, auto);
+  grid-row-gap: 30px;
+}
+/*# sourceMappingURL=ListItem.css.map */

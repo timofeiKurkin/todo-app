@@ -1,0 +1,29 @@
+.open__wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.open__text {
+  display: flex;
+  align-items: center;
+}
+.open__close {
+  cursor: pointer;
+  display: flex;
+}
+.open__close-icon {
+  width: 22px;
+  height: 22px;
+}
+.open .no-active,
+.open .is-active {
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 6px 9px;
+}
+.open .no-active {
+  background-color: white;
+}
+.open .is-active {
+  background-color: #75f344;
+}
+/*# sourceMappingURL=OpenToDo.css.map */

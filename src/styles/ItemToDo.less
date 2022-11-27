@@ -1,0 +1,57 @@
+.item-todo {
+
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__text {
+    display: flex;
+    align-items: center;
+  }
+
+  &__close {
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    border-radius: 5px;
+
+    svg {
+      padding: 11px;
+    }
+    background-color: black;
+  }
+
+  &__complete {
+    margin-right: 12px;
+  }
+
+  &__content {
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: minmax(300px, 800px);
+  }
+
+  .no-active, .is-active {
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 6px 9px;
+  }
+
+  .no-active {
+    background-color: white;
+  }
+  .is-active {
+    background-color: rgb(117, 243, 68);
+  }
+}
+
+.is-active-item, .no-active-item {
+  padding: 5px 10px;
+  transition: all .5s;
+}
+
+.is-active-item {
+  background-color: rgba(117, 243, 68, 0.5);
+}

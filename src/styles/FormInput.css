@@ -1,0 +1,17 @@
+.form__body {
+  padding-bottom: 30px;
+}
+.form__inputBody {
+  display: grid;
+  grid-template-columns: minmax(300px, 650px);
+  grid-template-rows: minmax(20px, auto) minmax(10px, auto) minmax(150px, auto) minmax(10px, auto);
+  grid-row-gap: 14px;
+  margin-bottom: 15px;
+}
+.form__title {
+  font-size: 23px;
+  font-weight: 600;
+  color: black;
+  margin-bottom: 15px;
+}
+/*# sourceMappingURL=FormInput.css.map */
