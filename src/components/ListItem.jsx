@@ -3,7 +3,6 @@ import ItemToDo from "./ItemToDo";
 import "../styles/ListItem.css"
 
 const ListItem = ({items, remove, open, complete, loading}) => {
-
 	if(loading) {
 		return (
 			<h2>Загрузка...</h2>

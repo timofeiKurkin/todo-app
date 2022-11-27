@@ -40,6 +40,9 @@
   font-size: 16px;
   color: #1A1A1A;
 }
+.open__file {
+  margin-bottom: 15px;
+}
 .open__date-span {
   color: #000;
 }

@@ -17,7 +17,7 @@ function App() {
 
 	useEffect(() => {
 		getData(setItems, setLoading, toDay)
-	}, [items])
+	}, [])
 
 	const createToDo = async (newTodo) => {
 		await addDoc(todosCollectionRef, newTodo)
@@ -43,6 +43,7 @@ function App() {
 					id: item.id,
 					title: editToDo.title,
 					description: editToDo.description,
+					file: editToDo.file,
 					dateComplete: editToDo.dateComplete,
 					completeStatus: editToDo.completeStatus
 				}

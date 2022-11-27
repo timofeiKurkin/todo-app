@@ -1,14 +1,16 @@
-import React from "react";
+import React, {useState} from "react";
 import useInput from "../hooks/useInput";
 import CreateInput from "./ui/CreateInput";
 import CreateTextarea from "./ui/CreateTextarea";
 import Button from "./ui/Button";
 import "../styles/FormInput.css"
+import UploadFile from "./UploadFile";
 
 const FormInputs = ({createToDo}) => {
 	const title = useInput("", "title", {isEmpty: true})
 	const description = useInput("", "description", {isEmpty: true})
 	const date = useInput("", "date", {isEmpty: true})
+	const [selectedFile, setSelectedFile] = useState({})
 	const statusDate = false
 
 	const clearLocalStorage = () => {
@@ -22,6 +24,15 @@ const FormInputs = ({createToDo}) => {
 			id: Date.now(),
 			title: title.value,
 			description: description.value,
+			file: !!selectedFile.length && {
+				// file: {
+					id: Date.now(),
+					name: selectedFile[0].name,
+					size: selectedFile[0].size,
+					type: selectedFile[0].type,
+					lastModified: selectedFile[0].lastModified,
+				// }
+			},
 			dateComplete: date.value,
 			completeStatus: statusDate
 		}
@@ -63,6 +74,10 @@ const FormInputs = ({createToDo}) => {
 							place="Описание"
 
 						/>
+					</div>
+
+					<div>
+						<UploadFile setSelectedFile={setSelectedFile}/>
 					</div>
 				</div>
 

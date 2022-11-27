@@ -5,6 +5,7 @@ import CreateTextarea from "./ui/CreateTextarea";
 import Button from "./ui/Button";
 import dayjs from "dayjs";
 import CheckMark from "./ui/CheckMark";
+import UploadFile from "./UploadFile";
 
 const OpenItem = ({props, remove, save, toDay}) => {
 	const [editToDoStatus, setEditToDoStatus] = useState(false)
@@ -13,18 +14,24 @@ const OpenItem = ({props, remove, save, toDay}) => {
 		idItem: "",
 		title: "",
 		description: "",
+		file: {},
 		dateComplete: "",
 		completeStatus: false
 	})
+	const [selectedFile, setSelectedFile] = useState({})
+	const [selectedFileStatus, setSelectedFileStatus] = useState(false)
+	console.log(selectedFileStatus)
 
 	const handleOpen = (item) => {
 		setEditToDo({
 			idItem: item.idItem,
 			title: item.title,
 			description: item.description,
+			file: item.file,
 			dateComplete: item.dateComplete,
 			completeStatus: item.completeStatus
 		})
+		setSelectedFile(item.file)
 		setEditToDoStatus(!editToDoStatus)
 	}
 
@@ -49,10 +56,24 @@ const OpenItem = ({props, remove, save, toDay}) => {
 			idItem: editToDo.idItem,
 			title: editToDo.title,
 			description: editToDo.description,
+			file:
+				selectedFileStatus ? (!!selectedFile.length && {
+						id: Date.now(),
+						name: selectedFile[0].name,
+						size: selectedFile[0].size,
+						type: selectedFile[0].type,
+						lastModified: selectedFile[0].lastModified,
+					})
+					:
+					editToDo.file
+			,
 			dateComplete: editToDo.dateComplete,
 			completeStatus: (toDay >= editToDo.dateComplete) ? statusDate : editToDo.completeStatus
 		}
 		save(edit)
+		// if (selectedFileStatus) {
+			// setSelectedFile({})
+		// }
 	}
 
 	return (
@@ -77,9 +98,17 @@ const OpenItem = ({props, remove, save, toDay}) => {
 									<p className="open__text">{item.description}</p>
 								</div>
 								{
+									item.file &&
+									<div className="open__file">
+										Прикрепленный файл: {item.file.name}
+									</div>
+								}
+								{
 									item.dateComplete &&
 									<div className="open__date-wrapper">
-										<p className="open__date">Дата выполнения: <span className="open__date-span">{dayjs(item.dateComplete).format("DD.MM.YYYY")}</span></p>
+										<p className="open__date">Дата выполнения: <span
+											className="open__date-span">{dayjs(item.dateComplete).format("DD.MM.YYYY")}</span>
+										</p>
 									</div>
 								}
 
@@ -146,6 +175,13 @@ const OpenItem = ({props, remove, save, toDay}) => {
 															...editToDo,
 															description: e.target.value
 														})}
+										/>
+									</div>
+
+									<div className="open-edit__file">
+										<UploadFile setSelectedFile={setSelectedFile}
+													selectedFileStatus={selectedFileStatus}
+													setSelectedFileStatus={setSelectedFileStatus}
 										/>
 									</div>
 								</div>

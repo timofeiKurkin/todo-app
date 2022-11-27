@@ -1,10 +1,11 @@
 import React from 'react';
 
-const UploadFile = ({setSelectedFile}) => {
-	// const [uploaded, setUploeded] = useState()
-
+const UploadFile = ({setSelectedFile, selectedFileStatus, setSelectedFileStatus}) => {
 	const handleChange = (e) => {
 		setSelectedFile(e.target.files)
+		if(setSelectedFileStatus) {
+			setSelectedFileStatus(!selectedFileStatus)
+		}
 	}
 
 	return (

@@ -5,10 +5,13 @@ import CheckMark from "./ui/CheckMark";
 
 const ItemToDo = ({props, remove, open, complete}) => {
 	const dateParse = dayjs(props.dateComplete).format("DD.MM.YYYY")
+	const file = [props.file]
 
 	const handleCheck = () => {
 		complete(props, props.completeStatus)
 	}
+
+	// console.log(!!props.file)
 
 	return (
 		<div className={props.completeStatus ? "item-todo is-active-item" : "item-todo no-active-item"}>
@@ -31,6 +34,14 @@ const ItemToDo = ({props, remove, open, complete}) => {
 							<div className="item-todo__date-wrapper">
 								<p>Дата выполнения: <span>{dateParse}</span></p>
 							</div>}
+
+						{!!props.file && file.map((item, index) =>
+							<div key={index}>
+								Прикрепленный файл: {item.name}
+							</div>
+						)
+						}
+
 					</div>
 				</div>
 

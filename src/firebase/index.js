@@ -26,6 +26,7 @@ export const getData = (setItems, setLoading, toDay) => {
 				idItem: dataItem.id,
 				title: dataInfo.title,
 				description: dataInfo.description,
+				file: dataInfo.file,
 				dateComplete: dataInfo.dateComplete,
 				completeStatus: (dataInfo.dateComplete && (dataInfo.dateComplete <= toDay)) ? !dataInfo.completeStatus : dataInfo.completeStatus
 			}
