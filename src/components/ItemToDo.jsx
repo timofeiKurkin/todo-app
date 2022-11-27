@@ -3,15 +3,34 @@ import "../styles/ItemToDo.css"
 import dayjs from "dayjs";
 import CheckMark from "./ui/CheckMark";
 
+/**
+ *
+ * @param {{file, dateComplete: (string|*), description: string, completeStatus: (boolean|*), id: number, title: string, idItem: string}} props
+ * @param {function} remove
+ * @param {function} open
+ * @param {function} complete
+ * @returns {JSX.Element}
+ * @constructor
+ */
 const ItemToDo = ({props, remove, open, complete}) => {
+
+	/**
+	 * Парсим дату в нужный вид.
+	 * @type {string}
+	 */
 	const dateParse = dayjs(props.dateComplete).format("DD.MM.YYYY")
+
+	/**
+	 * В переменную помещаем объект с полем file.
+	 */
 	const file = [props.file]
 
+	/**
+	 * Функция для обозначения выполненного to-do.
+	 */
 	const handleCheck = () => {
 		complete(props, props.completeStatus)
 	}
-
-	// console.log(!!props.file)
 
 	return (
 		<div className={props.completeStatus ? "item-todo is-active-item" : "item-todo no-active-item"}>

@@ -4,6 +4,10 @@ import './index.css';
 import App from './App';
 import {db} from './firebase/index'
 
+/**
+ * Создаю контекст для того, чтобы передавать db из "./firebase/index", во все компоненты.
+ * @type {React.Context<null>}
+ */
 export const Context = createContext(null)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
