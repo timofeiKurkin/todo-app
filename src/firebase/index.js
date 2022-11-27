@@ -27,7 +27,7 @@ export const getData = (setItems, setLoading, toDay) => {
 				title: dataInfo.title,
 				description: dataInfo.description,
 				dateComplete: dataInfo.dateComplete,
-				completeStatus: (dataInfo.dateComplete <= toDay) ? !dataInfo.completeStatus : dataInfo.completeStatus
+				completeStatus: (dataInfo.dateComplete && (dataInfo.dateComplete <= toDay)) ? !dataInfo.completeStatus : dataInfo.completeStatus
 			}
 			todoArray.push(todo)
 		})
