@@ -31,12 +31,11 @@ const ItemToDo = ({props, remove, open, complete}) => {
 	const unixDate = dayjs().unix()
 	const dateCompleteUnix = dayjs(dateParseSecond).unix()
 	const dateTimeOut = (dateCompleteUnix - unixDate) * 1000
-	console.log(dateTimeOut)
 
 	/**
 	 * Если статус !false => сработает setTimeout, а как время передаю dateTimeOut, который является разницей двух дат
 	 */
-	if(!props.completeStatus) {
+	if(!props.completeStatus && dateTimeOut > 0) {
 		setTimeout(() => {
 			complete(props, props.completeStatus)
 		}, dateTimeOut)

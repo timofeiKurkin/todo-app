@@ -100,10 +100,12 @@ const FormInputs = ({createToDo}) => {
 					</div>
 
 					<div>
-						<input type="date"
-							   value={date.value}
-							   onChange={e => date.onChange(e)}
-						/>
+						<p>
+							Дата выполнения: <input type="date"
+								   value={date.value}
+								   onChange={e => date.onChange(e)}
+							/>
+						</p>
 					</div>
 
 					<div className="form__textarea">
