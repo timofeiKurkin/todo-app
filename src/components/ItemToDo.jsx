@@ -2,8 +2,6 @@ import React from "react";
 import "../styles/ItemToDo.css"
 import dayjs from "dayjs";
 import CheckMark from "./ui/CheckMark";
-import {logDOM} from "@testing-library/react";
-// import relativeTime from 'dayjs/plugin/relativeTime'
 
 /**
  *

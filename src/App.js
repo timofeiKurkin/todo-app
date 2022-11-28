@@ -45,7 +45,7 @@ function App() {
 	 */
 	useEffect(() => {
 		getData(setItems, setLoading, toDay)
-	}, [])
+	}, [toDay])
 
 	/**
 	 * Функция для создания нового to-do.
