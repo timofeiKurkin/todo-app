@@ -38,7 +38,7 @@ const ItemToDo = ({props, remove, open, complete}) => {
 		if(!props.completeStatus && dateTimeOut > 0) {
 			setTimeout(() => {
 				complete(props, props.completeStatus)
-			}, 3000)
+			}, dateTimeOut)
 		}
 	}, [])
 
