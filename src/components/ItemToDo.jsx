@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "../styles/ItemToDo.css"
 import dayjs from "dayjs";
 import CheckMark from "./ui/CheckMark";
@@ -34,11 +34,13 @@ const ItemToDo = ({props, remove, open, complete}) => {
 	/**
 	 * Если статус !false => сработает setTimeout, а как время передаю dateTimeOut, который является разницей двух дат
 	 */
-	if(!props.completeStatus && dateTimeOut > 0) {
-		setTimeout(() => {
-			complete(props, props.completeStatus)
-		}, 3000)
-	}
+	useEffect(() => {
+		if(!props.completeStatus && dateTimeOut > 0) {
+			setTimeout(() => {
+				complete(props, props.completeStatus)
+			}, dateTimeOut)
+		}
+	}, [])
 
 	/**
 	 * В переменную помещаем объект с полем file.
