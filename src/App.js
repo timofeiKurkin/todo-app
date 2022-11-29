@@ -4,8 +4,8 @@ import FormInputs from "./components/FormInputs";
 import ListItem from "./components/ListItem";
 import OpenItem from "./components/OpenItem";
 import dayjs from "dayjs";
-import {doc, addDoc, deleteDoc, updateDoc} from "firebase/firestore";
-import {getData, getOneData, TODOS_PATH, todosCollectionRef} from "./firebase";
+import {doc, deleteDoc} from "firebase/firestore";
+import {getData, TODOS_PATH} from "./firebase";
 import {Context} from "./index";
 
 /**
@@ -48,18 +48,6 @@ function App() {
 	}, [toDay])
 
 	/**
-	 * Функция для создания нового to-do.
-	 * @param {{file, dateComplete: (string|*), description: string, completeStatus: (boolean|*), id: number, title: string, idItem: string}} newTodo - Данные из формы для создания нового to-do
-	 * @returns {Promise<void>}
-	 */
-	const createToDo = async (newTodo) => {
-		/**
-		 * Вызываем функцию для записи нового to-do на сервер.
-		 */
-		await addDoc(todosCollectionRef, newTodo)
-	}
-
-	/**
 	 * Удаление to-do
 	 * @param {{file, dateComplete: (string|*), description: string, completeStatus: (boolean|*), id: number, title: string, idItem: string}} item - Конкретный удаляемый to-do.
 	 * @returns {Promise<void>}
@@ -82,124 +70,16 @@ function App() {
 		await deleteDoc(doc(db, TODOS_PATH, idItem))
 	}
 
-	/**
-	 * Функция для открытия определенного to-do.
-	 * @param {{file, dateComplete: (string|*), description: string, completeStatus: (boolean|*), id: number, title: string, idItem: string}} item
-	 */
-	const openToDo = (item) => {
-		setSelectToDo(items.filter(i => i.idItem === item.idItem))
-	}
-
-	/**
-	 * Функция для сохранения изменений, совершенных для определенного to-do.
-	 * @param {{file, dateComplete: (string|*), description: string, completeStatus: (boolean|*), id: number, title: string, idItem: string}} editToDo
-	 * @returns {Promise<void>}
-	 */
-	const saveEdit = async (editToDo) => {
-		/**
-		 * Переменная с idItem - данный id соответствует, тому что на сервере.
-		 * @type {string}
-		 */
-		const idItem = editToDo.idItem
-
-		/**
-		 * Создаем пустой объект в который запишем изменения.
-		 * @type {{}}
-		 */
-		let todo = {}
-
-		items.forEach((item) => {
-
-			/**
-			 * Ищем нужный to-do.
-			 */
-			if ((idItem.indexOf(item.idItem) !== -1)) {
-
-				/**
-				 * И записываем изменения в ранее созданный todo объект
-				 * @type {{file, dateComplete: (string|*), description: string, completeStatus: (boolean|*), id: number, title: string, idItem: string}}
-				 */
-				todo = {
-					...item,
-					id: item.id,
-					title: editToDo.title,
-					description: editToDo.description,
-					file: editToDo.file,
-					dateComplete: editToDo.dateComplete,
-					completeStatus: editToDo.completeStatus
-				}
-			}
-		})
-
-		/**
-		 * Вызываем функцию для записи изменения определенного to-do по его idItem.
-		 */
-		await updateDoc(doc(db, TODOS_PATH, idItem), todo)
-
-		/**
-		 * Получаем данные определенного to-do, для визуального обновления открытого to-do.
-		 */
-		getOneData(idItem, setSelectToDo)
-	}
-
-	/**
-	 * Функция для обозначения выполненного to-do.
-	 * @param {{file, dateComplete: (string|*), description, completeStatus: (boolean|*), id, title, idItem}} status - Конкретный объект.
-	 * @param {ChangeEvent<HTMLSelectElement>} e - Событие
-	 * @returns {Promise<void>}
-	 */
-	const completeTask = async (status, e) => {
-		/**
-		 * Переменная с idItem - данный id соответствует, тому что на сервере.
-		 * @type {string}
-		 */
-		const idItem = status.idItem
-
-		/**
-		 * Создаем пустой объект в который запишем изменения.
-		 * @type {{}}
-		 */
-		let todo = {}
-
-		items.forEach((item) => {
-
-			/**
-			 * Ищем нужный to-do.
-			 */
-			if ((idItem.indexOf(item.idItem) !== -1)) {
-
-				/**
-				 * И обновляем в объекте поле статуса.
-				 * @type {{file, dateComplete: (string|*), description, completeStatus: (boolean|*), id, title, idItem}}
-				 */
-				todo = {
-					...item,
-					id: item.id,
-					completeStatus: !e
-				}
-			}
-		})
-
-		/**
-		 * Вызываем функцию для записи изменения определенного to-do по его idItem.
-		 */
-		await updateDoc(doc(db, TODOS_PATH, idItem), todo)
-
-		/**
-		 * Получаем данные определенного to-do, для визуального обновления открытого to-do.
-		 */
-		getOneData(idItem, setSelectToDo)
-	}
-
 	return (
 		<div className="App">
 			<div className="App__list">
-				<FormInputs createToDo={createToDo}/>
+				<FormInputs/>
 				<ListItem items={items}
 						  remove={removeToDo}
-						  open={openToDo}
-						  complete={completeTask}
-						  loading={loading}/>
+						  loading={loading}
+						  setSelectToDo={setSelectToDo}
+						  db={db}
+				/>
 			</div>
 
 			<div className="App__line"></div>
@@ -207,7 +87,8 @@ function App() {
 			<div className="App__item">
 				<OpenItem props={selectTodo}
 						  remove={removeToDo}
-						  save={saveEdit}
+						  setSelectToDo={setSelectToDo}
+						  db={db}
 				/>
 			</div>
 		</div>

@@ -5,6 +5,8 @@ import CreateTextarea from "./ui/CreateTextarea";
 import Button from "./ui/Button";
 import "../styles/FormInput.css"
 import UploadFile from "./UploadFile";
+import {addDoc} from "firebase/firestore";
+import {todosCollectionRef} from "../firebase";
 
 /**
  * Функциональный компонент FormInputs - создает новый to-do. Cодержит инпуты для создания нового to-do.
@@ -12,7 +14,7 @@ import UploadFile from "./UploadFile";
  * @returns {JSX.Element}
  * @constructor
  */
-const FormInputs = ({createToDo}) => {
+const FormInputs = () => {
 
 	/**
 	 * Превращаем инпуты в управляемые, с помощью указания значений из хуков:
@@ -49,10 +51,22 @@ const FormInputs = ({createToDo}) => {
 
 	/**
 	 * Функция для создания нового to-do.
+	 * @param {{file:  (false | {size, name, id: number, lastModified: any, type}), dateComplete: string, description: string, completeStatus: boolean, id: number, title: string, idItem: string}} newTodo - Данные из формы для создания нового to-do
+	 * @returns {Promise<void>}
+	 */
+	const createToDo = async (newTodo) => {
+		/**
+		 * Вызываем функцию для записи нового to-do на сервер.
+		 */
+		await addDoc(todosCollectionRef, newTodo)
+	}
+
+	/**
+	 * Функция для создания нового to-do.
 	 *
 	 * @param {ChangeEvent<HTMLSelectElement>} e
 	 */
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault()
 
 		/**
@@ -78,7 +92,7 @@ const FormInputs = ({createToDo}) => {
 		/**
 		 * Вызываем функцию из App.js и передаем в нее созданный объект newToDo.
 		 */
-		createToDo(newToDo)
+		await createToDo(newToDo)
 	}
 
 	return (

@@ -6,16 +6,19 @@ import Button from "./ui/Button";
 import dayjs from "dayjs";
 import CheckMark from "./ui/CheckMark";
 import UploadFile from "./UploadFile";
+import {doc, updateDoc} from "firebase/firestore";
+import {getOneData, TODOS_PATH} from "../firebase";
 
 /**
  * Функциональный компонент OpenItem - показывает открытый to-do. Есть возможность редактирования.
  * @param {{file, dateComplete: (string|*), description: string, completeStatus: (boolean|*), id: number, title: string, idItem: string}} props
  * @param {function} remove
- * @param {function} save
+ * @param {function} setSelectToDo
+ * @param db
  * @returns {JSX.Element}
  * @constructor
  */
-const OpenItem = ({props, remove, save}) => {
+const OpenItem = ({props, remove, setSelectToDo, db}) => {
 	/**
 	 * Состояние, указывающее, редактирует ли пользователь to-do в данный момент или просто просматривает. В зависимости от состояния, рисуются разные элементы.
 	 */
@@ -92,8 +95,14 @@ const OpenItem = ({props, remove, save}) => {
 	 * Функция для сохранения изменений, внесенных пользователем.
 	 * @param {ChangeEvent<HTMLSelectElement>} e
 	 */
-	const saveHandle = (e) => {
+	const saveHandle = async (e) => {
 		e.preventDefault()
+
+		/**
+		 * Переменная с idItem - данный id соответствует, тому что на сервере.
+		 * @type {string}
+		 */
+		const idItem = editToDo.idItem
 
 		/**
 		 * При сохранении меняем состояние на false. Рисуется разметка для просмотра to-do.
@@ -102,7 +111,7 @@ const OpenItem = ({props, remove, save}) => {
 
 		/**
 		 * В объект сохраняем все изменения от пользователя из объекта editToDo.
-		 * @type {{file: (false|{size, name, id: number, lastModified: *, type}), dateComplete: string, description: string, completeStatus: boolean, title: string, idItem: string}}
+		 * @type {{file: (false|{size, name, id: number, lastModified: number, type}), dateComplete: string, description: string, completeStatus: boolean, title: string, idItem: string}}
 		 */
 		const edit = {
 			idItem: editToDo.idItem,
@@ -127,12 +136,14 @@ const OpenItem = ({props, remove, save}) => {
 		}
 
 		/**
-		 * Вызываем функцию сохранения, и передаем в нее наш актуальный объект.
+		 * Вызываем функцию для записи изменения определенного to-do по его idItem.
 		 */
-		save(edit)
-		// if (selectedFileStatus) {
-			// setSelectedFile({})
-		// }
+		await updateDoc(doc(db, TODOS_PATH, idItem), edit)
+
+		/**
+		 * Получаем данные определенного to-do, для визуального обновления открытого to-do.
+		 */
+		getOneData(idItem, setSelectToDo)
 	}
 
 	return (
