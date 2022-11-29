@@ -2,6 +2,7 @@ import React from "react";
 import "../styles/ItemToDo.css"
 import dayjs from "dayjs";
 import CheckMark from "./ui/CheckMark";
+import {type} from "@testing-library/user-event/dist/type";
 
 /**
  *
@@ -33,10 +34,10 @@ const ItemToDo = ({props, remove, open, complete}) => {
 	/**
 	 * Если статус !false => сработает setTimeout, а как время передаю dateTimeOut, который является разницей двух дат
 	 */
-	if(!props.completeStatus && dateTimeOut) {
+	if(!props.completeStatus && dateTimeOut > 0) {
 		setTimeout(() => {
 			complete(props, props.completeStatus)
-		}, dateTimeOut)
+		}, 3000)
 	}
 
 	/**
