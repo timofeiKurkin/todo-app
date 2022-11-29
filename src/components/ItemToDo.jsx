@@ -33,7 +33,7 @@ const ItemToDo = ({props, remove, open, complete}) => {
 	/**
 	 * Если статус !false => сработает setTimeout, а как время передаю dateTimeOut, который является разницей двух дат
 	 */
-	if(!props.completeStatus && dateTimeOut > 0) {
+	if(!props.completeStatus && dateTimeOut) {
 		setTimeout(() => {
 			complete(props, props.completeStatus)
 		}, dateTimeOut)
