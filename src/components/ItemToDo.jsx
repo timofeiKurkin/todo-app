@@ -34,17 +34,6 @@ const ItemToDo = ({props, remove, db, setSelectToDo, items}) => {
 	const dateTimeOut = (dateCompleteUnix - unixDate) * 1000
 
 	/**
-	 * Если статус !false => сработает setTimeout, а как время передаю dateTimeOut, который является разницей двух дат
-	 */
-	useEffect(() => {
-		if(!props.completeStatus && dateTimeOut > 0) {
-			setTimeout(() => {
-				completeTask().then()
-			}, dateTimeOut)
-		}
-	}, [dateTimeOut, props.completeStatus])
-
-	/**
 	 * Функция для открытия определенного to-do.
 	 * @param {{file, dateComplete: (string|*), description: string, completeStatus: (boolean|*), id: number, title: string, idItem: string}} item
 	 */
@@ -85,6 +74,17 @@ const ItemToDo = ({props, remove, db, setSelectToDo, items}) => {
 		 */
 		getOneData(idItem, setSelectToDo)
 	}
+
+	/**
+	 * Если статус !false => сработает setTimeout, а как время передаю dateTimeOut, который является разницей двух дат
+	 */
+	useEffect(() => {
+		if(!props.completeStatus && dateTimeOut > 0) {
+			setTimeout(() => {
+				completeTask().then()
+			}, dateTimeOut)
+		}
+	}, [completeTask, dateTimeOut, props.completeStatus])
 
 	/**
 	 * В переменную помещаем объект с полем file.
