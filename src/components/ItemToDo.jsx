@@ -42,7 +42,7 @@ const ItemToDo = ({props, remove, db, setSelectToDo, items}) => {
 				completeTask().then()
 			}, dateTimeOut)
 		}
-	}, [])
+	}, [dateTimeOut, props.completeStatus])
 
 	/**
 	 * Функция для открытия определенного to-do.
